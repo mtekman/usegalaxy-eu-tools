@@ -19,15 +19,15 @@ for file in glob.glob("*.yaml"):
     for tool in w['tools']:
 
         if 'tool_panel_section_label' not in tool:
+            # Ignore data managers
+            if 'data_manager' in tool['name']:
+                continue
+
             exit_code = 1
             log.error("[%s] Tool %s %s missing section", file, tool['owner'], tool['name'])
             continue
 
         if tool['tool_panel_section_label'] not in section_list:
-            # Ignore data managers
-            if 'data_manager' in tool['name']:
-                continue
-
             exit_code = 1
             log.error("[%s] Tool %s %s unknown section (%s)", file, tool['owner'], tool['name'], tool['tool_panel_section_label'])
 
